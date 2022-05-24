@@ -34,6 +34,8 @@ body{
     width: 600px;
     margin: 0 auto;
     margin-top: 35px;
+    box-shadow: 6px 6px 6px 2px rgba(0, 0, 0, 0.492);
+    border-radius: 6px;
 }
 
 .header-tarefas{
@@ -41,6 +43,7 @@ body{
     align-items: center;
     justify-content:space-between;
     background-color: rgb(221, 221, 221);
+    border-radius: 6px;
 }
 
 .header-tarefas h3{
@@ -56,9 +59,10 @@ body{
 .tarefas{
     display: flex;
     align-items: center;
+    justify-content:space-between;
     margin: 0 auto;
     margin-top: 25px;
-    font-size: 25px;
+    font-size: 18px;
     width: 500px;
     transition: 200ms ease-in-out;
 }
@@ -71,6 +75,7 @@ body{
     display: inline-flex ;
     align-items: center;
     position: relative;
+    
 }
 
 [type="checkbox"]{
@@ -128,23 +133,37 @@ input[type="checkbox"]:checked + label::after{
     color: rgb(255, 16, 16);
     font-size: 25px;
     cursor: pointer;
-    position: absolute;
-    left: 485px;
+    
 }  
 
 .adicionar-tarefas{
     width: 500px;
-    margin: 0 auto;
-    margin-top: 20px;
-    
+    margin-top: 10px;
+    margin-left: 90px;  
 }
 
 [type="text"]{
-    width: 483px;
+    width: 400px;
     font-size: 19px;
     border: none;
     outline: none;
     border-bottom: 1.3px solid rgba(0, 0, 0, 0.382);
+}
+
+[type="submit"]:hover{
+    color: rgb(8, 251, 0);
+  
+}
+
+[type="submit"]{
+    background: none;
+    padding: 1px 3px;
+    width: 30px;
+    cursor: pointer;
+    border: none;
+    color: blue;
+    font-size: 40px;
+    transition: 0.3s;
 }
 
 .limpar-tarefas{

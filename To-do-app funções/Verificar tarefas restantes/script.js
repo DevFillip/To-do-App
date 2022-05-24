@@ -1,23 +1,22 @@
+const tarefas = document.querySelectorAll('.checkboxes')
 const tarefasRestantes = document.querySelector('.tarefas-restantes')
-var tarefas = 0;
+var tarefasContagem = 3;
 
 function teste(){
-    const checkboxes = document.querySelector('.checkboxes')
 
-    for (um in checkboxes){
-        if(um.checked){
-            tarefas -= 1
-        } 
-        else if(um.checked){
-            tarefas += 1
+    tarefas.forEach(function(el){
+        if(el.checked){
+            tarefasContagem--
         }
-        tarefas
-        
-        Restantes.innerHTML = `Ainda existem ${tarefas} tarefas restantes`
-    }
+    })
+    tarefasRestantes.innerHTML = `Ainda existem ${tarefasContagem} tarefas restantes`
 
-    
 }
+
+
+
+        
+
     
      
         

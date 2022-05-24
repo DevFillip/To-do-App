@@ -38,8 +38,8 @@
         </div><!--tarefas-->
 
         <div class="adicionar-tarefas">
-            <input type="text" value="" placeholder="Coloque sua nova tarefa">
-            <input type="submit" value="+">
+            <input type="text" value="" placeholder="Coloque sua nova tarefa" id="nova-tarefa">
+            <input type="submit" value="+" id="btn">
         </div><!--adicionar-tarefas-->
 
         <div class="limpar-tarefas">
@@ -48,7 +48,13 @@
 
     </div><!--container-tarefas-->
 
-
+    <template id="tarefas-template">
+        <div class="tarefas">
+            <input type="checkbox" name="" id="input-1">
+            <label for="input-1"><span class="customizar-checkbox"></span>Fazer a checkbox animada</label>
+            <h6 class="deletar-tarefa">X</h6>
+        </div><!--tarefas-->
+    </template>
     <script src="script.js"></script>
 </body>
 </html>
