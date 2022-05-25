@@ -39,6 +39,14 @@ function addTarefa(){
         h6.parentNode.remove()
     }
 
+    label.addEventListener('select', testando)
+
+    function testando(){
+        label.contentEditable = true
+
+    
+    }
+
 }
 
 limparTarefas.addEventListener('click', deletarTudo)
