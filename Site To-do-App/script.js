@@ -25,11 +25,15 @@ function addTarefa(){
     <span class="customizar-checkbox"></span>
     `+novaTarefa.value+`
     `
-    var h6 = document.createElement('h6')
+    var h6Edicao = document.createElement('h6')
+    h6Edicao.classList.add('editar-tarefa')
+    h6Edicao.textContent = 'editar'
+
+    var h6= document.createElement('h6')
     h6.classList.add('deletar-tarefa')
     h6.textContent = 'X'
 
-    div.append(input, label, h6)
+    div.append(input, label, h6Edicao ,h6)
 
     tarefasAdicionadas.append(div)
 
@@ -39,7 +43,33 @@ function addTarefa(){
         h6.parentNode.remove()
     }
 
-}
+    h6Edicao.addEventListener('click', testando)
+
+    function testando(){
+        var novoInput = document.createElement('input')
+        novoInput.setAttribute('type', 'text')
+        label.innerHTML = ""
+        div.insertBefore(novoInput, h6Edicao)
+        h6Edicao.remove()
+
+        var botaoSalvar = document.createElement('h6')
+        botaoSalvar.innerText = `Salvar`
+        div.insertBefore(botaoSalvar, h6)
+
+        botaoSalvar.addEventListener('click', salvarEdicao)
+
+        function salvarEdicao(){
+            botaoSalvar.remove()
+            
+            label.innerHTML = `
+            <span class="customizar-checkbox"></span> `+novoInput.value+`
+            `
+            novoInput.remove()
+
+            div.insertBefore(h6Edicao, h6)
+        }
+        }
+    }
 
 limparTarefas.addEventListener('click', deletarTudo)
 
