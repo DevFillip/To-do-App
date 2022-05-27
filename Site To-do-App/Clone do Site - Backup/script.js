@@ -12,7 +12,6 @@ var contadorCriacaoId = 0
 btn.addEventListener('click', addTarefa)
 
 function addTarefa(){   
-
     contadorCriacaoId += 1 
     tarefasAcumprirContador += 1
 
@@ -22,8 +21,6 @@ function addTarefa(){
     else{
         tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
     }
-
-    
 
     var div = document.createElement('div')
     div.classList.add('tarefas')
@@ -37,15 +34,20 @@ function addTarefa(){
     <span class="customizar-checkbox"></span>
     `+novaTarefa.value+`
     `
+
+    var divEditarExcluir = document.createElement('div')
+    divEditarExcluir.classList.add('div-editar-excluir')
     var h6Edicao = document.createElement('h6')
     h6Edicao.classList.add('editar-tarefa')
     h6Edicao.textContent = 'editar'
 
-    var h6= document.createElement('h6')
+    var h6 = document.createElement('h6')
     h6.classList.add('deletar-tarefa')
     h6.textContent = 'X'
 
-    div.append(input, label, h6Edicao ,h6)
+    divEditarExcluir.append(h6Edicao, h6)
+
+    div.append(input, label, divEditarExcluir)
 
     tarefasAdicionadas.append(div)
 
@@ -53,11 +55,12 @@ function addTarefa(){
 
     function deletarTarefa(){
         h6.parentNode.remove()
+        label.parentNode.remove()
         tarefasAcumprirContador -= 1
 
          if(tarefasAcumprirContador == 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
-        }else if(tarefasAcumprir > 1){
+        }else if(tarefasAcumprirContador > 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
         }
         else{
@@ -74,13 +77,13 @@ function addTarefa(){
         novoInput.setAttribute('type', 'text')
         novoInput.classList.add('input-edicao')
         label.innerHTML = ""
-        div.insertBefore(novoInput, h6Edicao)
+        divEditarExcluir.insertBefore(novoInput, h6Edicao)
         h6Edicao.remove()
 
         var botaoSalvar = document.createElement('h6')
         botaoSalvar.innerText = `Salvar`
         botaoSalvar.classList.add('botao-salvar')
-        div.insertBefore(botaoSalvar, h6)
+        divEditarExcluir.insertBefore(botaoSalvar, h6)
 
         botaoSalvar.addEventListener('click', salvarEdicao)
 
@@ -92,7 +95,7 @@ function addTarefa(){
             `
             novoInput.remove()
 
-            div.insertBefore(h6Edicao, h6)
+            divEditarExcluir.insertBefore(h6Edicao, h6)
         }
         }
     }
@@ -103,4 +106,8 @@ function deletarTudo(){
     while(tarefasAdicionadas.firstChild){
         tarefasAdicionadas.removeChild(tarefasAdicionadas.firstChild)
     }
+    tarefasAcumprirContador = 0
+    contadorCriacaoId = 0
+    tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
+
 }

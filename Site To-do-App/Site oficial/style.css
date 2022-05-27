@@ -169,6 +169,7 @@ input[type="checkbox"]:checked + label::after{
     font-size: 19px;
     border: none;
     outline: none;
+    background: none;
     border-bottom: 1.3px solid rgba(0, 0, 0, 0.382);
 }
 

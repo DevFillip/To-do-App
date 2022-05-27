@@ -23,8 +23,6 @@ function addTarefa(){
         tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
     }
 
-    
-
     var div = document.createElement('div')
     div.classList.add('tarefas')
 
@@ -57,7 +55,7 @@ function addTarefa(){
 
          if(tarefasAcumprirContador == 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
-        }else if(tarefasAcumprir > 1){
+        }else if(tarefasAcumprirContador > 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
         }
         else{
@@ -103,4 +101,8 @@ function deletarTudo(){
     while(tarefasAdicionadas.firstChild){
         tarefasAdicionadas.removeChild(tarefasAdicionadas.firstChild)
     }
+    tarefasAcumprirContador = 0
+    contadorCriacaoId = 0
+    tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
+
 }
