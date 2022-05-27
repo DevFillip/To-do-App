@@ -5,9 +5,11 @@ const adicionarTarefa = document.querySelector('.adicionar-tarefas')
 const containerTarefas = document.querySelector('.container-tarefas')
 const tarefasAdicionadas = document.querySelector('.tarefas-adicionadas')
 const tarefasAcumprir = document.querySelector('.tarefas-a-cumprir')
+const p = document.querySelector('.teste')
 
 var tarefasAcumprirContador = 0
 var contadorCriacaoId = 0
+var contadorSolo = 10
 
 btn.addEventListener('click', addTarefa)
 
@@ -28,6 +30,7 @@ function addTarefa(){
     var input = document.createElement('input')
     input.setAttribute('type','checkbox')
     input.setAttribute('id', 'input-' + (contadorCriacaoId))
+    input.setAttribute('name','checkboxes')
     var label = document.createElement('label')
     label.setAttribute('for', 'input-' + (contadorCriacaoId))
     label.innerHTML = `
@@ -51,22 +54,26 @@ function addTarefa(){
 
     tarefasAdicionadas.append(div)
 
+    var checkboxes = document.querySelectorAll('input[type=checkbox]')
+    checkboxes.forEach(function(checkbox){
+        checkbox.addEventListener('change', function (){
+            if(checkbox.checked){
+                contadorSolo -= 1
+            }else if(!checkbox.cheked){
+                contadorSolo += 1
+            }
+
+        p.innerHTML = `Você tem ${contadorSolo} tarefas!`
+        })
+    })
+
     h6.addEventListener('click', deletarTarefa)
 
     function deletarTarefa(){
         h6.parentNode.remove()
         label.parentNode.remove()
-        tarefasAcumprirContador -= 1
 
-         if(tarefasAcumprirContador == 1){
-            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
-        }else if(tarefasAcumprirContador > 1){
-            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
-        }
-        else{
-            tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
-
-        }
+         
 
     }
 
@@ -98,7 +105,12 @@ function addTarefa(){
             divEditarExcluir.insertBefore(h6Edicao, h6)
         }
         }
+      
+        
     }
+
+
+   
 
 limparTarefas.addEventListener('click', deletarTudo)
 
