@@ -4,7 +4,9 @@ const limparTarefas = document.querySelector('.limpar-tarefas')
 const adicionarTarefa = document.querySelector('.adicionar-tarefas')
 const containerTarefas = document.querySelector('.container-tarefas')
 const tarefasAdicionadas = document.querySelector('.tarefas-adicionadas')
+const tarefasAcumprir = document.querySelector('.tarefas-a-cumprir')
 
+var tarefasAcumprirContador = 0
 var contadorCriacaoId = 0
 
 btn.addEventListener('click', addTarefa)
@@ -12,6 +14,16 @@ btn.addEventListener('click', addTarefa)
 function addTarefa(){   
 
     contadorCriacaoId += 1 
+    tarefasAcumprirContador += 1
+
+    if(tarefasAcumprirContador == 1){
+        tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
+    }
+    else{
+        tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
+    }
+
+    
 
     var div = document.createElement('div')
     div.classList.add('tarefas')
@@ -41,19 +53,33 @@ function addTarefa(){
 
     function deletarTarefa(){
         h6.parentNode.remove()
+        tarefasAcumprirContador -= 1
+
+         if(tarefasAcumprirContador == 1){
+            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
+        }else if(tarefasAcumprir > 1){
+            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
+        }
+        else{
+            tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
+
+        }
+
     }
 
-    h6Edicao.addEventListener('click', testando)
+    h6Edicao.addEventListener('click', editarTarefa)
 
-    function testando(){
+    function editarTarefa(){
         var novoInput = document.createElement('input')
         novoInput.setAttribute('type', 'text')
+        novoInput.classList.add('input-edicao')
         label.innerHTML = ""
         div.insertBefore(novoInput, h6Edicao)
         h6Edicao.remove()
 
         var botaoSalvar = document.createElement('h6')
         botaoSalvar.innerText = `Salvar`
+        botaoSalvar.classList.add('botao-salvar')
         div.insertBefore(botaoSalvar, h6)
 
         botaoSalvar.addEventListener('click', salvarEdicao)
