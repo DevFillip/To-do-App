@@ -35,22 +35,30 @@ function addTarefa(){
     <span class="customizar-checkbox"></span>
     `+novaTarefa.value+`
     `
+
+    var divEditarExcluir = document.createElement('div')
+    divEditarExcluir.classList.add('div-editar-excluir')
     var h6Edicao = document.createElement('h6')
     h6Edicao.classList.add('editar-tarefa')
     h6Edicao.textContent = 'editar'
 
-    var h6= document.createElement('h6')
+    var h6 = document.createElement('h6')
     h6.classList.add('deletar-tarefa')
     h6.textContent = 'X'
 
-    div.append(input, label, h6Edicao ,h6)
+    divEditarExcluir.append(h6Edicao, h6)
+
+    div.append(input, label, divEditarExcluir)
 
     tarefasAdicionadas.append(div)
+
 
     h6.addEventListener('click', deletarTarefa)
 
     function deletarTarefa(){
         h6.parentNode.remove()
+        label.parentNode.remove()
+
         tarefasAcumprirContador -= 1
 
          if(tarefasAcumprirContador == 1){
@@ -72,13 +80,13 @@ function addTarefa(){
         novoInput.setAttribute('type', 'text')
         novoInput.classList.add('input-edicao')
         label.innerHTML = ""
-        div.insertBefore(novoInput, h6Edicao)
+        divEditarExcluir.insertBefore(novoInput, h6Edicao)
         h6Edicao.remove()
 
         var botaoSalvar = document.createElement('h6')
         botaoSalvar.innerText = `Salvar`
         botaoSalvar.classList.add('botao-salvar')
-        div.insertBefore(botaoSalvar, h6)
+        divEditarExcluir.insertBefore(botaoSalvar, h6)
 
         botaoSalvar.addEventListener('click', salvarEdicao)
 
@@ -90,7 +98,7 @@ function addTarefa(){
             `
             novoInput.remove()
 
-            div.insertBefore(h6Edicao, h6)
+            divEditarExcluir.insertBefore(h6Edicao, h6)
         }
         }
     }

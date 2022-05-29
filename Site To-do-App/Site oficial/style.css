@@ -158,6 +158,10 @@ input[type="checkbox"]:checked + label::after{
 
 }
 
+.div-editar-excluir{
+    display: flex;
+}
+
 .adicionar-tarefas{
     width: 500px;
     margin-top: 10px;

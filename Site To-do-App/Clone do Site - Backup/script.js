@@ -54,19 +54,6 @@ function addTarefa(){
 
     tarefasAdicionadas.append(div)
 
-    var checkboxes = document.querySelectorAll('input[type=checkbox]')
-    checkboxes.forEach(function(checkbox){
-        checkbox.addEventListener('change', function (){
-            if(checkbox.checked){
-                contadorSolo -= 1
-            }else if(!checkbox.cheked){
-                contadorSolo += 1
-            }
-
-        p.innerHTML = `Você tem ${contadorSolo} tarefas!`
-        })
-    })
-
     h6.addEventListener('click', deletarTarefa)
 
     function deletarTarefa(){
