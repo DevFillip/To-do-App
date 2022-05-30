@@ -12,7 +12,6 @@ var contadorCriacaoId = 0
 btn.addEventListener('click', addTarefa)
 
 function addTarefa(){   
-
     contadorCriacaoId += 1 
     tarefasAcumprirContador += 1
 
@@ -52,6 +51,18 @@ function addTarefa(){
 
     tarefasAdicionadas.append(div)
 
+    input.addEventListener('change', numeroTarefas)
+
+    function numeroTarefas(){
+        if(input.checked){
+            tarefasAcumprirContador -= 1
+        }else if(!input.checked){
+            tarefasAcumprirContador += 1
+        }
+        tarefasAcumprir.innerHTML = `${tarefasAcumprirContador} tarefas restantes!`
+    }
+   
+
 
     h6.addEventListener('click', deletarTarefa)
 
@@ -59,9 +70,11 @@ function addTarefa(){
         h6.parentNode.remove()
         label.parentNode.remove()
 
-        tarefasAcumprirContador -= 1
+        if(!input.checked){
+            tarefasAcumprirContador -= 1
+        }
 
-         if(tarefasAcumprirContador == 1){
+        if(tarefasAcumprirContador == 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
         }else if(tarefasAcumprirContador > 1){
             tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
