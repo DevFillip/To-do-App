@@ -1,129 +1,137 @@
-const btn = document.querySelector('#btn')
-const novaTarefa = document.querySelector('#nova-tarefa')
-const limparTarefas = document.querySelector('.limpar-tarefas')
-const adicionarTarefa = document.querySelector('.adicionar-tarefas')
 const containerTarefas = document.querySelector('.container-tarefas')
+const novaTarefa = document.querySelector('#nova-tarefa')
+const btnAddTarefa = document.querySelector('#btn')
 const tarefasAdicionadas = document.querySelector('.tarefas-adicionadas')
 const tarefasAcumprir = document.querySelector('.tarefas-a-cumprir')
+const btnLimparTarefas = document.querySelector('.limpar-tarefas')
 
-var tarefasAcumprirContador = 0
-var contadorCriacaoId = 0
+var numeroDeTarefas = 0
+var criacaoDeIdsDeInputs = 0
 
-btn.addEventListener('click', addTarefa)
+btnAddTarefa.addEventListener('click', addTarefa)
 
 function addTarefa(){   
-    contadorCriacaoId += 1 
-    tarefasAcumprirContador += 1
+    numeroDeTarefas += 1 
+    criacaoDeIdsDeInputs += 1
 
-    if(tarefasAcumprirContador == 1){
-        tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
+    if(numeroDeTarefas == 1){
+        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
     }
     else{
-        tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
+        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
     }
 
-    var div = document.createElement('div')
-    div.classList.add('tarefas')
+    var divTarefas = document.createElement('div')
+    divTarefas.classList.add('tarefas')
 
-    var input = document.createElement('input')
-    input.setAttribute('type','checkbox')
-    input.setAttribute('id', 'input-' + (contadorCriacaoId))
-    var label = document.createElement('label')
-    label.setAttribute('for', 'input-' + (contadorCriacaoId))
-    label.innerHTML = `
+    var checkboxes = document.createElement('input')
+    checkboxes.setAttribute('type','checkbox')
+    checkboxes.setAttribute('id', 'input-' + (criacaoDeIdsDeInputs))
+    var labelTarefas = document.createElement('label')
+    labelTarefas.setAttribute('for', 'input-' + (criacaoDeIdsDeInputs))
+    labelTarefas.innerHTML = `
     <span class="customizar-checkbox"></span>
     `+novaTarefa.value+`
     `
-
+    
     var divEditarExcluir = document.createElement('div')
     divEditarExcluir.classList.add('div-editar-excluir')
-    var h6Edicao = document.createElement('h6')
-    h6Edicao.classList.add('editar-tarefa')
-    h6Edicao.textContent = 'editar'
+    var btnEditar = document.createElement('h6')
+    btnEditar.classList.add('editar-tarefa')
+    btnEditar.textContent = 'editar'
 
-    var h6 = document.createElement('h6')
-    h6.classList.add('deletar-tarefa')
-    h6.textContent = 'X'
+    var btnExcluir = document.createElement('h6')
+    btnExcluir.classList.add('deletar-tarefa')
+    btnExcluir.textContent = 'X'
 
-    divEditarExcluir.append(h6Edicao, h6)
+    divEditarExcluir.append(btnEditar, btnExcluir)
+    divTarefas.append(checkboxes, labelTarefas, divEditarExcluir)
+    tarefasAdicionadas.append(divTarefas)
 
-    div.append(input, label, divEditarExcluir)
+    checkboxes.addEventListener('change', tarefasRealizadas)
 
-    tarefasAdicionadas.append(div)
-
-    input.addEventListener('change', numeroTarefas)
-
-    function numeroTarefas(){
-        if(input.checked){
-            tarefasAcumprirContador -= 1
-        }else if(!input.checked){
-            tarefasAcumprirContador += 1
+    function tarefasRealizadas(){
+        if(checkboxes.checked){
+            numeroDeTarefas -= 1
+        }else if(!checkboxes.checked){
+            numeroDeTarefas += 1
         }
-        tarefasAcumprir.innerHTML = `${tarefasAcumprirContador} tarefas restantes!`
-    }
-   
-
-
-    h6.addEventListener('click', deletarTarefa)
-
-    function deletarTarefa(){
-        h6.parentNode.remove()
-        label.parentNode.remove()
-
-        if(!input.checked){
-            tarefasAcumprirContador -= 1
-        }
-
-        if(tarefasAcumprirContador == 1){
-            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefa!</p>`
-        }else if(tarefasAcumprirContador > 1){
-            tarefasAcumprir.innerHTML = `<p>Você tem ${tarefasAcumprirContador} tarefas!</p>`
+        if(numeroDeTarefas == 1){
+            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
+        }else if(numeroDeTarefas > 1){
+            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
         }
         else{
-            tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
+            tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
+        }
+    } 
+   
+    btnExcluir.addEventListener('click', deletarTarefa)
 
+    function deletarTarefa(){
+        btnExcluir.parentNode.remove()
+        labelTarefas.parentNode.remove()
+        novaTarefa.value = ''
+        novaTarefa.focus()
+
+        if(!checkboxes.checked){
+            numeroDeTarefas -= 1
         }
 
+        if(numeroDeTarefas == 1){
+            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
+        }else if(numeroDeTarefas > 1){
+            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
+        }
+        else{
+            tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
+        }
     }
 
-    h6Edicao.addEventListener('click', editarTarefa)
+    btnEditar.addEventListener('click', editarTarefa)
 
     function editarTarefa(){
-        var novoInput = document.createElement('input')
-        novoInput.setAttribute('type', 'text')
-        novoInput.classList.add('input-edicao')
-        label.innerHTML = ""
-        divEditarExcluir.insertBefore(novoInput, h6Edicao)
-        h6Edicao.remove()
+        var inputEditarTarefa = document.createElement('input')
+        inputEditarTarefa.setAttribute('type', 'text')
+        inputEditarTarefa.classList.add('input-edicao')
+        labelTarefas.innerHTML = ""
+        divEditarExcluir.insertBefore(inputEditarTarefa, btnEditar)
+        btnEditar.remove()
 
-        var botaoSalvar = document.createElement('h6')
-        botaoSalvar.innerText = `Salvar`
-        botaoSalvar.classList.add('botao-salvar')
-        divEditarExcluir.insertBefore(botaoSalvar, h6)
+        var btnSalvarEdicao = document.createElement('h6')
+        btnSalvarEdicao.innerText = `Salvar`
+        btnSalvarEdicao.classList.add('botao-salvar')
+        divEditarExcluir.insertBefore(btnSalvarEdicao, btnExcluir)
 
-        botaoSalvar.addEventListener('click', salvarEdicao)
+        inputEditarTarefa.focus()
+
+        btnSalvarEdicao.addEventListener('click', salvarEdicao)
 
         function salvarEdicao(){
-            botaoSalvar.remove()
-            
-            label.innerHTML = `
-            <span class="customizar-checkbox"></span> `+novoInput.value+`
+            btnSalvarEdicao.remove()
+            labelTarefas.innerHTML = `
+            <span class="customizar-checkbox"></span> `+inputEditarTarefa.value+`
             `
-            novoInput.remove()
+            inputEditarTarefa.remove()
+            divEditarExcluir.insertBefore(btnEditar, btnExcluir)
 
-            divEditarExcluir.insertBefore(h6Edicao, h6)
-        }
+            novaTarefa.focus()
         }
     }
+    novaTarefa.value = ''
+    novaTarefa.focus()
+    
+}
 
-limparTarefas.addEventListener('click', deletarTudo)
+btnLimparTarefas.addEventListener('click', limparTarefas)
 
-function deletarTudo(){
+function limparTarefas(){
     while(tarefasAdicionadas.firstChild){
         tarefasAdicionadas.removeChild(tarefasAdicionadas.firstChild)
     }
-    tarefasAcumprirContador = 0
-    contadorCriacaoId = 0
-    tarefasAcumprir.innerHTML = `<p>Nenhuma tarefa a cumprir</p>`
-
+    novaTarefa.value = ''
+    novaTarefa.focus()
+    numeroDeTarefas = 0
+    criacaoDeIdsDeInputs = 0
+    tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
 }
