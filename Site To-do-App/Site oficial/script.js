@@ -13,13 +13,7 @@ btnAddTarefa.addEventListener('click', addTarefa)
 function addTarefa(){   
     numeroDeTarefas += 1 
     criacaoDeIdsDeInputs += 1
-
-    if(numeroDeTarefas == 1){
-        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
-    }
-    else{
-        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
-    }
+    mostrarQtdTarefas()
 
     var divTarefas = document.createElement('div')
     divTarefas.classList.add('tarefas')
@@ -51,19 +45,8 @@ function addTarefa(){
     checkboxes.addEventListener('change', tarefasRealizadas)
 
     function tarefasRealizadas(){
-        if(checkboxes.checked){
-            numeroDeTarefas -= 1
-        }else if(!checkboxes.checked){
-            numeroDeTarefas += 1
-        }
-        if(numeroDeTarefas == 1){
-            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
-        }else if(numeroDeTarefas > 1){
-            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
-        }
-        else{
-            tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
-        }
+        checkboxes.checked ? numeroDeTarefas -= 1 : numeroDeTarefas += 1
+        mostrarQtdTarefas()
     } 
    
     btnExcluir.addEventListener('click', deletarTarefa)
@@ -71,21 +54,12 @@ function addTarefa(){
     function deletarTarefa(){
         btnExcluir.parentNode.remove()
         labelTarefas.parentNode.remove()
-        novaTarefa.value = ''
-        novaTarefa.focus()
-
+        focarNaCriacaoDaTarefa()
+    
         if(!checkboxes.checked){
             numeroDeTarefas -= 1
         }
-
-        if(numeroDeTarefas == 1){
-            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
-        }else if(numeroDeTarefas > 1){
-            tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
-        }
-        else{
-            tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
-        }
+        mostrarQtdTarefas() 
     }
 
     btnEditar.addEventListener('click', editarTarefa)
@@ -115,12 +89,10 @@ function addTarefa(){
             inputEditarTarefa.remove()
             divEditarExcluir.insertBefore(btnEditar, btnExcluir)
 
-            novaTarefa.focus()
+            focarNaCriacaoDaTarefa()
         }
     }
-    novaTarefa.value = ''
-    novaTarefa.focus()
-    
+    focarNaCriacaoDaTarefa()
 }
 
 btnLimparTarefas.addEventListener('click', limparTarefas)
@@ -129,9 +101,24 @@ function limparTarefas(){
     while(tarefasAdicionadas.firstChild){
         tarefasAdicionadas.removeChild(tarefasAdicionadas.firstChild)
     }
-    novaTarefa.value = ''
-    novaTarefa.focus()
+    focarNaCriacaoDaTarefa()
     numeroDeTarefas = 0
     criacaoDeIdsDeInputs = 0
-    tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
+    mostrarQtdTarefas()
+}
+
+function mostrarQtdTarefas(){
+    if(numeroDeTarefas == 1){
+        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefa!`
+    }else if(numeroDeTarefas > 1){
+        tarefasAcumprir.textContent = `Você tem ${numeroDeTarefas} tarefas!`
+    }
+    else{
+        tarefasAcumprir.textContent = `Nenhuma tarefa a cumprir`
+    }
+}
+
+function focarNaCriacaoDaTarefa(){
+    novaTarefa.value = ''
+    novaTarefa.focus()
 }
